@@ -49,15 +49,6 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-	kate
-	elisa
-	gwenview
-	print-manager
-  ];
-
-
-
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
@@ -67,9 +58,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable USB tethering to iphone
-  services.usbmuxd.enable = true;
-  
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -82,7 +70,7 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
-         # use the example session manager (no others are packaged yet so this is enabled by default,
+    # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
@@ -98,6 +86,7 @@
     packages = with pkgs; [
       firefox
       kate
+      git
     ];
   };
 
@@ -107,61 +96,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-      gitFull
-      pass-git-helper
-      mailspring
-      obsidian
-      jumpapp
-      vscode
-      gitFull
-      htop
-      btop
-      micro
-      ddgr
-      neofetch
-      ranger
-      broot
-      yakuake
-      st
-      zsh
-      oh-my-zsh
-      gimp
-      vlc
-      brave
-      browsh
-      rustup
-      steam
-      steam-run
-      chromium
-      kdeconnect
-      inkscape-with-extensions
-      qucs
-      yt-dlp
-      usbutils
-      libimobiledevice
-      ifuse
- #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.  #  wget
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
   ];
 
-  # mounting iphone via iFuse is poosible with the following commands
-  # mkdir /tmp/iphone
-  # ifuse /tmp/iphone
-
-  # for usb tethering, first enable tethering in the IOS networking settings.
-  # after that, run the following command.
-  # idevicepair pair
-
-  programs.kdeconnect.enable =  true;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
-  environment.shells = with pkgs; [ zsh ];
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -173,8 +111,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.flatpak.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -190,9 +127,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
 }
