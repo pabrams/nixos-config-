@@ -103,6 +103,21 @@
         vscode
         gitFull
         htop
+        btop
+        micro
+        ddgr
+        neofetch
+        ranger
+        broot
+        yakuake
+        st
+        zsh
+        oh-my-zsh
+        gimp
+        vlc
+        brave
+        browsh
+        rustup
  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.  #  wget
   ];
 
