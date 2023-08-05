@@ -50,10 +50,10 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-	kate
-	elisa
-	gwenview
-	print-manager
+        kate
+        elisa
+        gwenview
+        print-manager
   ];
 
 
@@ -97,7 +97,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-      kate
     ];
   };
 
@@ -107,13 +106,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+      gparted
       gitFull
       pass-git-helper
       mailspring
       obsidian
       jumpapp
       vscode
-      gitFull
       htop
       btop
       micro
@@ -175,7 +174,10 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.flatpak.enable = true;
-
+  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+  services.xserver.displayManager.sessionCommands = ''
+    ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0
+  '';
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
