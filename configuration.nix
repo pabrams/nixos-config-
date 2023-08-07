@@ -2,6 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# sudo nixos-rebuild switch
+
+
 { config, pkgs, ... }:
 
 {
@@ -13,6 +16,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -139,6 +143,7 @@
       usbutils
       libimobiledevice
       ifuse
+      gitkraken
  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.  #  wget
   ];
 
@@ -174,6 +179,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.flatpak.enable = true;
+  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
