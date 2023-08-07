@@ -2,6 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# sudo nixos-rebuild switch
+
+
 { config, pkgs, ... }:
 
 {
@@ -13,6 +16,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -50,10 +54,10 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-        kate
-        elisa
-        gwenview
-        print-manager
+	kate
+	elisa
+	gwenview
+	print-manager
   ];
 
 
@@ -139,6 +143,7 @@
       usbutils
       libimobiledevice
       ifuse
+      gitkraken
  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.  #  wget
   ];
 
@@ -175,9 +180,7 @@
   services.openssh.enable = true;
   services.flatpak.enable = true;
   services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
-  services.xserver.displayManager.sessionCommands = ''
-    ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0
-  '';
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
